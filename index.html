@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Security Tools</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="logo">CyberSec Tools</div>
+    <button id="dark-mode-toggle" class="circular-button">🌙</button>
+  </nav>
+
+  <!-- News Section -->
+  <section id="news-section">
+    <h2>Latest Cybersecurity News</h2>
+    <ul id="news-list">
+      <li>Loading news...</li>
+    </ul>
+  </section>
+
+  <!-- Tools Section -->
+  <section id="tools-section">
+    <h2>Useful Tools</h2>
+
+    <!-- Password Strength Checker -->
+    <div class="tool">
+      <h3>Password Strength Checker</h3>
+      <input type="password" id="password-input" placeholder="Enter password">
+      <p id="password-strength"></p>
+      <button id="generate-strong-password">Generate Strong Password</button>
+      <button id="toggle-password-visibility" style="margin-top: 0.5rem;">Show Password</button>
+    </div>
+
+    <!-- QR Code Generator -->
+    <div class="tool">
+      <h3>QR Code Generator</h3>
+      <input type="text" id="qr-input" placeholder="Enter text or URL">
+      <button id="generate-qr">Generate QR Code</button>
+      <div id="qr-code-container"></div>
+    </div>
+  </section>
+
+  <!-- Blogs Section -->
+  <section id="blogs-section">
+    <h2>Cybersecurity Blogs & Resources</h2>
+    <div class="blog-container">
+      <!-- Blog Post 1 -->
+      <div class="blog-card">
+        <h3>What is Phishing and How to Protect Yourself</h3>
+        <p>Phishing is a common cyberattack where attackers trick users into revealing sensitive information...</p>
+        <button onclick="window.location.href='blog-phishing.html'">Read More</button>
+      </div>
+
+      <!-- Blog Post 2 -->
+      <div class="blog-card">
+        <h3>The Importance of Strong Passwords</h3>
+        <p>Weak passwords are one of the biggest vulnerabilities in cybersecurity. Learn how to create strong passwords...</p>
+        <button onclick="window.location.href='blog-passwords.html'">Read More</button>
+      </div>
+
+      <!-- Blog Post 3 -->
+      <div class="blog-card">
+        <h3>Top 5 Cybersecurity Threats in 2023</h3>
+        <p>As technology evolves, so do cyber threats. Here are the top 5 cybersecurity threats to watch out for in 2023...</p>
+        <button onclick="window.location.href='blog-threats.html'">Read More</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
