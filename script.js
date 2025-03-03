@@ -1,143 +1,119 @@
+document.addEventListener("DOMContentLoaded", () => {
+  // 🔹 LOGIN FUNCTIONALITY
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+      loginForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          const response = await fetch("https://your-render-url.onrender.com/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password })
+          });
+
+          const data = await response.json();
+          if (data.success) {
+              localStorage.setItem("user", JSON.stringify({ username }));
+              window.location.href = "main.html"; // Redirect to main page
+          } else {
+              document.getElementById("error-message").textContent = "Invalid username or password!";
+              document.getElementById("error-message").style.display = "block";
+          }
+      });
+  }
+
+  // 🔹 SIGNUP FUNCTIONALITY
+  const signupForm = document.getElementById("signup-form");
+  if (signupForm) {
+      signupForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("new-username").value;
+          const password = document.getElementById("new-password").value;
+
+          const response = await fetch("https://your-render-url.onrender.com/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password })
+          });
+
+          const data = await response.json();
+          if (data.success) {
+              alert("Signup successful! Please login.");
+              window.location.href = "index.html"; // Redirect to login
+          } else {
+              document.getElementById("signup-error-message").textContent = "User already exists!";
+              document.getElementById("signup-error-message").style.display = "block";
+          }
+      });
+  }
+
+  // 🔹 PASSWORD VISIBILITY TOGGLE
+  document.getElementById("toggle-login-password")?.addEventListener("click", () => {
+      togglePasswordVisibility("password");
+  });
+  document.getElementById("toggle-signup-password")?.addEventListener("click", () => {
+      togglePasswordVisibility("new-password");
+  });
+
+  function togglePasswordVisibility(inputId) {
+      const passwordField = document.getElementById(inputId);
+      passwordField.type = passwordField.type === "password" ? "text" : "password";
+  }
+});
 // Dark Mode Toggle
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 if (darkModeToggle) {
-  const isDarkMode = document.body.classList.contains('dark-mode');
-  darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
+  const isDarkMode = document.body.classList.contains('light-mode') ? false : true;
+  darkModeToggle.textContent = isDarkMode ? '🌙' : '☀️';
 
   darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const isNowDarkMode = document.body.classList.contains('dark-mode');
-    darkModeToggle.textContent = isNowDarkMode ? '☀️' : '🌙';
-    localStorage.setItem('darkMode', isNowDarkMode);
+    document.body.classList.toggle('light-mode');
+    const isNowLightMode = document.body.classList.contains('light-mode');
+    darkModeToggle.textContent = isNowLightMode ? '☀️' : '🌙';
+    localStorage.setItem('lightMode', isNowLightMode);
   });
 
-  const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-  if (savedDarkMode) {
-    document.body.classList.add('dark-mode');
+  const savedLightMode = localStorage.getItem('lightMode') === 'true';
+  if (savedLightMode) {
+    document.body.classList.add('light-mode');
     darkModeToggle.textContent = '☀️';
   }
 }
 
-// Simulated User Data for Login
-const validUser = {
-  username: "admin",
-  password: "securepassword123"
-};
+// Toggle Password Visibility for Login and Signup
+const toggleLoginPasswordBtn = document.getElementById('toggle-login-password');
+const loginPasswordInput = document.getElementById('password');
+const toggleSignupPasswordBtn = document.getElementById('toggle-signup-password');
+const signupPasswordInput = document.getElementById('new-password');
 
-// Handle Login Form Submission
-const loginForm = document.getElementById('login-form');
-const errorMessage = document.getElementById('error-message');
+if (toggleLoginPasswordBtn && loginPasswordInput) {
+  let isLoginPasswordVisible = false;
 
-if (loginForm) {
-  loginForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (username === validUser.username && password === validUser.password) {
-      window.location.href = 'index.html';
+  toggleLoginPasswordBtn.addEventListener('click', () => {
+    if (isLoginPasswordVisible) {
+      loginPasswordInput.type = 'password';
+      toggleLoginPasswordBtn.textContent = 'Show Password';
     } else {
-      errorMessage.style.display = 'block';
+      loginPasswordInput.type = 'text';
+      toggleLoginPasswordBtn.textContent = 'Hide Password';
     }
+    isLoginPasswordVisible = !isLoginPasswordVisible;
   });
 }
 
-// Password Strength Checker
-const passwordInput = document.getElementById('password-input');
-const passwordStrength = document.getElementById('password-strength');
-const generateStrongPasswordBtn = document.getElementById('generate-strong-password');
-const togglePasswordVisibilityBtn = document.getElementById('toggle-password-visibility');
+if (toggleSignupPasswordBtn && signupPasswordInput) {
+  let isSignupPasswordVisible = false;
 
-if (passwordInput && passwordStrength) {
-  passwordInput.addEventListener('input', () => {
-    const password = passwordInput.value;
-    const strength = checkPasswordStrength(password);
-    passwordStrength.textContent = `Strength: ${strength}`;
-  });
-
-  let isPasswordVisible = false;
-
-  generateStrongPasswordBtn.addEventListener('click', () => {
-    const strongPassword = generateImprovedPassword(passwordInput.value);
-    passwordInput.value = strongPassword;
-    passwordStrength.textContent = 'Strength: Strong';
-  });
-
-  togglePasswordVisibilityBtn.addEventListener('click', () => {
-    if (isPasswordVisible) {
-      passwordInput.type = 'password';
-      togglePasswordVisibilityBtn.textContent = 'Show Password';
+  toggleSignupPasswordBtn.addEventListener('click', () => {
+    if (isSignupPasswordVisible) {
+      signupPasswordInput.type = 'password';
+      toggleSignupPasswordBtn.textContent = 'Show Password';
     } else {
-      passwordInput.type = 'text';
-      togglePasswordVisibilityBtn.textContent = 'Hide Password';
+      signupPasswordInput.type = 'text';
+      toggleSignupPasswordBtn.textContent = 'Hide Password';
     }
-    isPasswordVisible = !isPasswordVisible;
+    isSignupPasswordVisible = !isSignupPasswordVisible;
   });
-}
-
-function checkPasswordStrength(password) {
-  if (password.length < 6) return 'Weak';
-  if (password.length < 10) return 'Moderate';
-  return 'Strong';
-}
-
-function generateImprovedPassword(userPassword) {
-  const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
-  const numberChars = '0123456789';
-  const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-
-  let newPassword = userPassword;
-
-  if (!/[A-Z]/.test(newPassword)) newPassword += getRandomChar(uppercaseChars);
-  if (!/[a-z]/.test(newPassword)) newPassword += getRandomChar(lowercaseChars);
-  if (!/[0-9]/.test(newPassword)) newPassword += getRandomChar(numberChars);
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(newPassword)) newPassword += getRandomChar(symbolChars);
-
-  while (newPassword.length < 12) {
-    const charSet = uppercaseChars + lowercaseChars + numberChars + symbolChars;
-    newPassword += getRandomChar(charSet);
-  }
-
-  return shuffleString(newPassword);
-}
-
-function getRandomChar(charSet) {
-  return charSet.charAt(Math.floor(Math.random() * charSet.length));
-}
-
-function shuffleString(str) {
-  let array = str.split('');
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array.join('');
-}
-
-// QR Code Generator
-const qrInput = document.getElementById('qr-input');
-const generateQrBtn = document.getElementById('generate-qr');
-const qrCodeContainer = document.getElementById('qr-code-container');
-
-if (qrInput && generateQrBtn && qrCodeContainer) {
-  generateQrBtn.addEventListener('click', () => {
-    const text = qrInput.value;
-    if (!text) return alert('Please enter text or URL');
-    qrCodeContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}" alt="QR Code">`;
-  });
-}
-
-// Fetch News (Mock API Example)
-const newsList = document.getElementById('news-list');
-if (newsList) {
-  fetch('https://api.example.com/cybersecurity-news') // Replace with real API
-    .then(response => response.json())
-    .then(data => {
-      newsList.innerHTML = data.map(news => `<li>${news.title}</li>`).join('');
-    })
-    .catch(() => {
-      newsList.innerHTML = '<li>Failed to load news.</li>';
-    });
 }

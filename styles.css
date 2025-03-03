@@ -7,14 +7,14 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #000, #333);
-  color: #fff;
+  background: #000; /* Default black background */
+  color: #fff; /* Default white text */
   transition: background-color 0.3s, color 0.3s;
 }
 
-body.dark-mode {
-  background: linear-gradient(135deg, #111, #222);
-  color: #e0e0e0;
+body.light-mode {
+  background: #fff; /* White background in light mode */
+  color: #000; /* Black text in light mode */
 }
 
 /* Navbar */
@@ -23,10 +23,17 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: linear-gradient(135deg, #000, #333);
-  color: white;
+  background: #000; /* Default black navbar */
+  color: #fff; /* Default white text */
   position: relative;
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+body.light-mode nav {
+  background: #fff; /* White navbar in light mode */
+  color: #000; /* Black text in light mode */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 nav .logo {
@@ -35,11 +42,15 @@ nav .logo {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+body.light-mode nav .logo {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 .circular-button {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #444, #666);
-  color: #fff;
+  background: #444; /* Default dark button */
+  color: #fff; /* Default white text */
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -51,12 +62,22 @@ nav .logo {
   top: 10px;
   right: 10px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
+}
+
+body.light-mode .circular-button {
+  background: #ddd; /* Light button in light mode */
+  color: #000; /* Black text in light mode */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .circular-button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+body.light-mode .circular-button:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 0, 0, 0.4);
 }
 
 /* Sections */
@@ -65,22 +86,27 @@ section {
   margin: 1rem auto;
   max-width: 800px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #000, #333);
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.05);
+  background: #000; /* Default black section */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-body.dark-mode section {
-  background: linear-gradient(135deg, #111, #222);
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1), 0 0 10px rgba(255, 255, 255, 0.05);
+body.light-mode section {
+  background: #fff; /* White section in light mode */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
   margin-bottom: 1rem;
   text-align: center;
   font-size: 2rem;
-  color: #fff;
+  color: #fff; /* Default white heading */
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+body.light-mode h2 {
+  color: #000; /* Black heading in light mode */
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .tool {
@@ -96,9 +122,16 @@ textarea {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: #fff; /* Default white text */
   font-size: 1rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
+}
+
+body.light-mode input,
+body.light-mode textarea {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.1);
+  color: #000; /* Black text in light mode */
 }
 
 input:focus,
@@ -108,18 +141,29 @@ textarea:focus {
   outline: none;
 }
 
+body.light-mode input:focus,
+body.light-mode textarea:focus {
+  border-color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 button {
-  background: linear-gradient(135deg, #555, #777);
-  color: #fff;
+  background: #555; /* Default dark button */
+  color: #fff; /* Default white text */
   border: none;
   border-radius: 5px;
   padding: 0.8rem;
   font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
   margin-top: 0.5rem;
   width: 100%;
   max-width: 200px;
+}
+
+body.light-mode button {
+  background: #ddd; /* Light button in light mode */
+  color: #000; /* Black text in light mode */
 }
 
 button:hover {
@@ -127,19 +171,8 @@ button:hover {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-/* Login Page Specific Styles */
-#login-section {
-  text-align: center;
-}
-
-#login-form input {
-  margin-bottom: 1rem;
-}
-
-#error-message {
-  color: #ff6f61;
-  font-size: 0.9rem;
-  margin-top: 1rem;
+body.light-mode button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Blog Section Styles */
@@ -156,8 +189,13 @@ button:hover {
   border-radius: 10px;
   width: 300px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+}
+
+body.light-mode .blog-card {
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .blog-card:hover {
@@ -175,16 +213,25 @@ button:hover {
 }
 
 .blog-card button {
-  background: linear-gradient(135deg, #555, #777);
-  color: #fff;
+  background: #555; /* Default dark button */
+  color: #fff; /* Default white text */
   border: none;
   border-radius: 5px;
   padding: 0.5rem;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: transform 0.3s, background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+body.light-mode .blog-card button {
+  background: #ddd; /* Light button in light mode */
+  color: #000; /* Black text in light mode */
 }
 
 .blog-card button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+body.light-mode .blog-card button:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
